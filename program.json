@@ -1,0 +1,170 @@
+{
+  "schemaVersion": "1.1",
+  "concert": {
+    "title": "Orchestra Concert — July 6, 2026",
+    "subtitle": "Haydn · Geter (world premiere) · Corigliano · Shostakovich",
+    "date": "2026-07-06",
+    "notes": "Section timings are estimates and drift with the ensemble. Tap a highlighted cue (♪ hear / ◉ see) when it happens to re-sync. Pause / Reset / ±5s and ‹Sec / Sec› also available."
+  },
+  "program": [
+    {
+      "type": "piece",
+      "id": "haydn-96",
+      "composer": "Joseph Haydn (1732–1809)",
+      "title": "Symphony No. 96 in D Major, Hob. I:96 \"Miracle\"",
+      "duration": "21'",
+      "note": "One of the twelve \"London\" symphonies, written in 1791 for Haydn's triumphant first visit to London under the impresario Salomon.\n\nThe \"Miracle\" nickname comes from a story that a chandelier crashed into empty seats as the crowd surged toward the stage — no one hurt, a \"miracle.\" It actually happened at the premiere of Symphony No. 102, but the legend stuck here. Bright, witty, full of surprises.",
+      "movements": [
+        {
+          "id": "haydn-96-i",
+          "title": "I. Adagio — Allegro",
+          "durationSeconds": 450,
+          "attacca": false,
+          "sections": [
+            { "t": 0, "label": "Slow introduction (Adagio)", "text": "Haydn opens not with fireworks but with ceremony: full, dignified D-major chords, spaced by silences, that quickly cloud over toward D minor. This is the eighteenth-century equivalent of dimming the house lights — a deliberate hush that makes you lean in. Notice how the harmony keeps promising to resolve and then holds back, stretching the suspense. The whole introduction is a setup: Haydn is winding a spring that the fast music is about to release. Listen for the woodwinds softening the texture just before the tempo breaks open.", "landmark": "Adagio" },
+            { "t": 75, "label": "Allegro main theme", "text": "The spring releases and [[1st violins launch the skipping theme @1:15 #visual]] — a light, upward-darting tune you can literally watch being played, since the whole section bows it in unison. Keep your eye on them; their coordinated up-bows are a reliable visual metronome for the movement's pulse. What makes this Haydn at his cleverest is thrift: he builds nearly the entire Allegro from this single idea, tossing it between strings and winds, turning it upside down, and re-dressing it in new harmonies rather than inventing new themes. It's monothematic sonata form — one tune, endless disguises — so half the fun is catching the theme sneaking back in where you least expect it.", "landmark": "Allegro" },
+            { "t": 230, "label": "Development", "text": "Now Haydn goes exploring. He seizes the little theme and drags it through a series of remote, unsettled keys, fragmenting it into smaller and smaller pieces until only a flick of the tune remains. The mood turns restless and searching, the harmony deliberately unstable so that home feels far away. This is also where his famous wit bites: listen for [[a sudden sforzando jolt @4:05 #aural]] — an accent that lands exactly where you don't expect one, the musical equivalent of a poke in the ribs. Haydn loved catching a comfortable audience off guard, and the development is where he does it most." },
+            { "t": 360, "label": "Recapitulation & coda", "text": "The tension finally breaks and the home key snaps back into focus, the opening theme returning like a familiar face — though Haydn can't resist re-lighting it with fresh harmony on the way past. Everything now pulls toward home. In the closing bars the brass and drums, quiet for much of the movement, step forward: [[horns & timpani drive the final cadence @6:40 #aural]], adding weight and brilliance to the finish. It's a crisp, bright, unfussy ending — no grand peroration, just Haydn tipping his hat and stepping back with a wink." }
+          ]
+        },
+        {
+          "id": "haydn-96-ii",
+          "title": "II. Andante",
+          "durationSeconds": 360,
+          "attacca": false,
+          "sections": [
+            { "t": 0, "label": "G major song", "text": "After the bustle, a change of air: a gentle, songful theme in G major, poised and courtly, the kind of melody Haydn could spin out endlessly. It moves at a walking pace, elegant rather than emotional, with the strings carrying the tune and the winds tucking in soft replies. Think of it as a sung conversation among well-mannered friends. Let it settle you — Haydn is establishing a calm, symmetrical world precisely so that he can disturb it in a moment." },
+            { "t": 130, "label": "G minor turn", "text": "The calm breaks. The music slides from major into G minor and the temperature drops — [[a stabbing fortissimo @2:20 #aural]] marks the moment the mood turns, sudden and theatrical after so much politeness. The strings grow agitated, the harmony darker and more urgent, and for a stretch this genial slow movement shows an unexpected dramatic streak, almost operatic. This contrast is the whole point: Haydn sets up the pretty tune so that its shadow-side lands with real force. Notice how much louder and more insistent the orchestra suddenly sounds." },
+            { "t": 260, "label": "Return & solo flourish", "text": "The storm passes and the opening theme returns, but now dressed up — Haydn decorates it with runs and ornaments so it sparkles rather than simply repeats. The most delightful touch comes near the end: [[solo-violin filigree @5:20 #visual]], where the leader steps out of the section with delicate solo passagework, joined by solo winds, turning the full orchestra into something as intimate as chamber music. Watch the front-desk violinist for this. It's a moment of chamber-scale filigree inside a symphony — a small, glittering farewell before the movement fades to its close." }
+          ]
+        },
+        {
+          "id": "haydn-96-iii",
+          "title": "III. Menuetto: Allegretto",
+          "durationSeconds": 270,
+          "attacca": false,
+          "sections": [
+            { "t": 0, "label": "Minuet", "text": "A sturdy, foot-on-the-ground minuet in D major — less an aristocratic ballroom dance than a robust, good-humored stomp, the kind Haydn grew up hearing in Austrian villages. The rhythm is broad and confident, the full orchestra digging in on the downbeats. By this point in his career Haydn was quietly muscling the polite minuet toward the earthier scherzo that Beethoven would soon take over. Enjoy its swing; it's built to feel a little heavier and more physical than courtly." },
+            { "t": 110, "label": "Trio — oboe solo", "text": "The central trio thins the texture right down and changes color completely: [[solo oboe enters @1:50 #visual]] with a lilting tune floating over a sustained drone in the low strings — a sound deliberately borrowed from rustic village bands and bagpipes. Watch the principal oboist, who carries this stretch almost alone; it's one of the movement's most exposed and charming solos. The drone gives it a pastoral, open-air quality, a momentary escape from the busy dance into something simpler and rural. Haydn loved these folk touches, reminders of the countryside inside a cosmopolitan London symphony.", "landmark": "Trio" },
+            { "t": 200, "label": "Minuet returns", "text": "By convention the minuet now comes back note-for-note — 'da capo,' from the top — the sturdy dance returning to frame the delicate trio like bookends. Nothing new happens musically, and that's the point: after the pastoral daydream of the oboe solo, the return of the solid, familiar dance feels grounding and satisfying, snapping us back to the ballroom. Listen for how much fuller and more emphatic the full orchestra sounds after the thin, drone-lit trio you just heard." }
+          ]
+        },
+        {
+          "id": "haydn-96-iv",
+          "title": "IV. Finale: Vivace",
+          "durationSeconds": 210,
+          "attacca": false,
+          "sections": [
+            { "t": 0, "label": "Rondo theme", "text": "The finale is a rondo — a form built on a catchy tune that keeps coming back between contrasting episodes — and it launches at a gallop: [[1st violins spin the featherlight tune @0:00 #visual]], a quicksilver, comic melody taken at a tempo that dares the players to keep up. Watch the violins' bows blur. Everything here is light, fast, and grinning; Haydn wants you to leave the movement smiling. Fix this tune in your ear now, because recognizing its cheeky returns is the whole game of a rondo." },
+            { "t": 80, "label": "Episodes & wit", "text": "Between the tune's reappearances, Haydn spins off contrasting episodes that wander into new keys and moods — including a [[mock-serious minor turn @1:20 #aural]] where the music briefly pretends to be dramatic and stern before puncturing its own solemnity. This is comedy through timing: false alarms, exaggerated pauses, sudden shifts from loud to soft. Half the pleasure is how he keeps delaying and disguising the return of the main tune, teasing you before letting it pop back in. Listen for the orchestra playing straight-faced at its own jokes." },
+            { "t": 160, "label": "Whispered coda", "text": "Haydn saves one last trick for the end. The music suddenly drops to a hushed pianissimo, the whole orchestra tiptoeing, almost stopping — a stage whisper that makes you hold your breath and wonder whether the piece is quietly slipping away. Then [[the whole orchestra crashes back in @2:50 #aural]] at full volume for a bright, emphatic finish, the punchline after the setup. It's the oldest trick in Haydn's book and it still works: lull them, then surprise them. A grinning, generous way to end." }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "piece",
+      "id": "geter-american-story",
+      "composer": "Damien Geter (b. 1980)",
+      "title": "An American Story (World Premiere)",
+      "duration": "15'",
+      "credits": "Kwame Alexander, Narrator / Librettist · text drawn from The Undefeated and An American Story by Kwame Alexander",
+      "provisional": true,
+      "note": "A world premiere. Damien Geter — composer, bass-baritone, and conductor — is known for socially engaged works such as An African American Requiem.\n\nThe text is drawn from two Kwame Alexander books: The Undefeated, a hymn to Black American resilience and achievement, and An American Story, a reckoning with how the history of slavery is told. Kwame Alexander narrates his own words.\n\nNo recording exists to time against, so the sections below are rough placeholders. Let the narration be your anchor — use the cues and ‹Sec / Sec› to drive it by hand.",
+      "movements": [
+        {
+          "id": "geter-1",
+          "title": "An American Story (single span)",
+          "durationSeconds": 900,
+          "attacca": false,
+          "sections": [
+            { "t": 0, "label": "Invocation", "text": "As a world premiere, everything here is a first hearing — for the audience and nearly so for the players — so treat these notes as orientation, not a map. Geter is a theater composer at heart, and works like this typically open by setting a scene: the orchestra establishes an atmosphere and then makes room for the voice. [[The narrator begins @0:00 #aural]] — this is Kwame Alexander speaking his own words, so the relationship between speech and orchestra is the thing to attend to. Listen for how the music frames the spoken cadence rather than covering it: swelling in the gaps between phrases, receding under the words, treating the narration as another instrumental line. The opening text is drawn from The Undefeated, Alexander's incantatory poem of Black American endurance." },
+            { "t": 180, "label": "The undefeated", "text": "As the poem catalogs figures and moments of Black achievement and survival, expect the music to gather momentum and confidence to match. This is the likely emotional high-water mark of the first span — brass and percussion asserting themselves, the orchestra moving from atmosphere toward affirmation. Alexander's text here builds on repetition and rising intensity ('the undefeated… the undefeated'), and a composer will usually mirror that with accumulating rhythmic drive and brighter, fuller scoring. Since this is unrehearsed territory for your ear, follow the words: when the narration lifts and insists, the orchestra almost certainly lifts with it." },
+            { "t": 420, "label": "The hard chapters", "text": "The material now most likely turns toward the harder history that the second source, An American Story, confronts directly — the middle passage, slavery, and the difficulty of telling that story honestly to children. Expect the texture to thin and darken, the orchestra pulling back to sparser, more fragile sounds beneath the narration so the words land plainly. This is where a socially engaged composer like Geter — whose An African American Requiem grapples with exactly this history — tends to trade momentum for weight and silence. Let the quiet do its work; the sparseness is the expression, not an absence of it." },
+            { "t": 660, "label": "Naming & remembrance", "text": "From the darkness, expect a turn toward lament and remembrance — a lyrical, elegiac passage in which the strings likely come to the foreground with something song-like and grieving. In music that honors the dead and the unnamed, this is the emotional center of gravity: warmer, slower, more sustained. Alexander's poetry moves from struggle toward tribute, naming and remembering, and the scoring usually follows into something more openly beautiful and consoling. This is the section most likely to draw the deepest hush from the hall." },
+            { "t": 840, "label": "Toward resolve", "text": "For the ending, expect the threads to gather toward resolve — not a simple triumph, given the weight of what came before, but an affirming, forward-leaning close that leaves endurance and hope as the last word. Alexander's texts characteristically turn hard history into a charge for the living, and Geter will likely bring the full orchestra and the voice together one last time to seal it. Because this is a premiere, the exact shape is a surprise waiting to happen; use ‹Sec / Sec› freely and let Kwame Alexander's delivery, not the clock, tell you where you are." }
+          ]
+        }
+      ]
+    },
+    { "type": "intermission", "label": "Intermission" },
+    {
+      "type": "piece",
+      "id": "corigliano-elegy",
+      "composer": "John Corigliano (b. 1938)",
+      "title": "Elegy",
+      "duration": "10'",
+      "note": "Composed in 1965, Corigliano's Elegy grew out of incidental music he wrote for a stage production. It is a single unbroken orchestral lament: a long-breathed woodwind melody over hushed strings that rises to an anguished climax and subsides.",
+      "movements": [
+        {
+          "id": "corigliano-1",
+          "title": "Elegy (single movement)",
+          "durationSeconds": 600,
+          "attacca": false,
+          "sections": [
+            { "t": 0, "label": "Hushed opening", "text": "Corigliano's Elegy grew out of incidental music for the theater, and it opens like a curtain rising on an empty, grieving stage: muted strings lay down a hushed, sustained cushion, and over it [[solo flute begins the mournful line @0:10 #visual]] — a long, unhurried melody that seems reluctant to move. Watch the principal flute; this exposed solo sets the entire emotional tone. The writing is spare and modal, closer to a lament sung alone than to a symphonic argument. Everything that follows grows from this single grieving line, so listen to its shape now: how it rises a little, sighs back down, and refuses to resolve." },
+            { "t": 150, "label": "The melody spreads", "text": "The solitary tune begins to spread through the orchestra. It passes first to [[the oboe @2:30 #visual]] — a reedier, more plaintive voice than the flute — and then outward into the strings, each new instrument warming and deepening the line. As the melody is taken up by more players, the dynamic swells and the harmony thickens beneath it; what began as one lonely voice becomes a shared grief. Corigliano is building a long, patient crescendo of feeling here, adding weight gradually rather than in sudden strokes, so that the eventual climax feels earned. Follow the tune as it migrates from soloist to full section." },
+            { "t": 360, "label": "Climax", "text": "The long build finally breaks open: [[full orchestra @6:00 #aural]], the lament at its most intense and anguished. Here the grieving melody, passed around and layered for minutes, is hurled out by the whole ensemble at full force — strings straining upward, brass adding darkness and mass. This is the emotional peak Corigliano has been withholding, and it lands hard precisely because he made you wait through so much restraint. It's a cathartic, almost cinematic outpouring — no surprise from a composer who would go on to write some of film's most powerful scores. Let it wash over you; the release is the whole point of the piece." },
+            { "t": 500, "label": "Subsiding", "text": "Having spent everything at the climax, the music has nowhere to go but down. The full orchestra recedes, instruments dropping away one by one, and the grieving melody returns to where it started — a single solo voice, alone again over the barest accompaniment. The Elegy closes the way it opened, the circle deliberately completed, before dissolving into silence. Don't rush to applaud; Corigliano leaves a fragile, exposed quiet at the end that is part of the piece. The whole ten minutes is really one long breath: out, and then in." }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "piece",
+      "id": "shostakovich-1",
+      "composer": "Dmitri Shostakovich (1906–1975)",
+      "title": "Symphony No. 1 in F minor, Op. 10",
+      "duration": "30'",
+      "note": "Written in 1924–25 as Shostakovich's graduation piece from the Leningrad Conservatory — he was only 18–19. It premiered in 1926 to instant international fame.\n\nExpect sharp wit, circus and grotesque colors, and solo instruments treated like characters on a stage — set against sudden flashes of real depth. Note the prominent solo piano.",
+      "movements": [
+        {
+          "id": "shos1-i",
+          "title": "I. Allegretto",
+          "durationSeconds": 540,
+          "attacca": false,
+          "sections": [
+            { "t": 0, "label": "Muted fanfare intro", "text": "It's almost impossible to believe a teenager wrote this. [[Solo trumpet opens @0:00 #aural]] with a muted, off-kilter little fanfare, answered by a sardonic bassoon — a wry, disjointed call-and-response that sounds less like a symphony's grand opening than like clowns warming up backstage. Shostakovich treats his solo instruments as characters on a stage, each with a distinct, slightly grotesque personality, and this ironic theatricality is his fingerprint from the very first bar. The mood is knowing, playful, faintly mocking. Notice how nothing quite connects smoothly; the fragments deliberately don't add up, keeping you off balance and amused." },
+            { "t": 90, "label": "Main Allegro — clarinet", "text": "The introduction's fragments suddenly cohere into motion as [[clarinet takes the skittering march @1:30 #aural]] — a brittle, quick-stepping tune that trots along like a marionette on strings, jerky and mechanical by design. This is the movement's main theme, and its puppet-theater character is entirely intentional: Shostakovich grew up improvising at the piano for silent films, and you can hear the cabaret and the movie-house in this music's sharp, ironic edges. The strings snap and comment around the clarinet. Keep the tune's clipped, marching gait in your ear; it will be pulled apart and reassembled as the movement goes on." },
+            { "t": 250, "label": "Lyrical second theme — flute", "text": "For contrast, the music softens and [[solo flute @4:10 #visual]] floats in with a graceful, lyrical waltz-tune — a moment of real tenderness after all the sardonic marching. Watch the principal flute; this is the movement's second subject, the warm foil to the brittle clarinet march. But even here Shostakovich keeps an ironic tilt: the waltz is a touch too sweet, faintly nostalgic, as if remembered rather than felt. This push-pull between genuine lyricism and knowing irony is the young composer's great balancing act, and it runs through everything he would later write. Enjoy the breathing room; the jostling is about to resume." },
+            { "t": 420, "label": "Development & return", "text": "Now the two ideas — the puppet-march and the wistful waltz — are thrown together and made to argue. Shostakovich fragments them, stacks them, and hands them around the orchestra, the textures growing busier and more combative as they jostle for room. The irony sharpens into something almost aggressive. It all drives toward an [[abrupt full-orchestra close @7:00 #aural]]: rather than winding down gracefully, the movement simply snaps shut, a hard, slightly rude full stop. That refusal to give a comfortable ending is pure young Shostakovich — witty, abrupt, and unwilling to let you settle." }
+          ]
+        },
+        {
+          "id": "shos1-ii",
+          "title": "II. Allegro (Scherzo)",
+          "durationSeconds": 270,
+          "attacca": false,
+          "sections": [
+            { "t": 0, "label": "Driving scherzo", "text": "The scherzo bursts in with racing strings and a hard-driving, sardonic energy — faster, wilder, and more manic than anything in the first movement. This is machine-music, all momentum and glinting edges, hurtling forward with a slightly menacing glee. Shostakovich's scherzos would become one of his signatures: brilliant, brittle, and just a little frightening — dances with a skull grinning underneath. Hold on; the tempo is relentless and the mood is closer to a chase than a waltz. Notice the sheer physical drive of the string writing." },
+            { "t": 110, "label": "Trio — flutes & piano", "text": "The central trio drops the chase and changes the light completely: [[two flutes @1:50 #visual]] pipe a slower, folk-tinged tune, something almost rustic and songlike, over [[the piano's percussive edge @1:55 #aural]]. The piano is a full member of this symphony's orchestra — one of its most distinctive colors — and here it adds a hard, bright glitter beneath the winds, half accompaniment and half interruption. Watch and listen for it; the piano's cold attack is a sound you'll want to recognize when it returns. The whole trio feels like a strange, slightly hollow folk dance glimpsed through glass.", "landmark": "Trio" },
+            { "t": 210, "label": "Scherzo returns", "text": "The folk-dance spell shatters when [[piano crashes back in @3:30 #aural]] and yanks the racing scherzo music back to life. This return is more violent than the opening — the piano now weaponized, hammering the orchestra forward with cold, mechanical force toward a hard, abrupt stop. Shostakovich builds the whole movement so that this crash lands as a genuine shock, the machine roaring up again after the eerie calm of the trio. It ends not with a flourish but with a slammed door. That percussive piano jolt is one of the most reliable, unmistakable events in the whole symphony to sync to." }
+          ]
+        },
+        {
+          "id": "shos1-iii",
+          "title": "III. Lento",
+          "durationSeconds": 540,
+          "attacca": true,
+          "sections": [
+            { "t": 0, "label": "Oboe lament", "text": "Everything ironic and brittle now falls away, and the symphony reveals its heart. [[Solo oboe @0:00 #visual]] sings a long, grieving, deeply expressive line over dark, slow-moving strings — the emotional core of the whole work, and proof that this teenager could reach real tragedy, not just clever satire. Watch the principal oboe; this exposed solo carries the movement's soul. The mood is funereal, Russian, and utterly sincere after two movements of masks. Let the length of the phrases sink in: Shostakovich stretches time here, refusing to hurry the grief. This slow movement is where the promise of the whole symphony deepens into something lasting." },
+            { "t": 180, "label": "Solos answer / funeral tread", "text": "The oboe's lament is taken up and answered: [[solo cello answers @3:00 #visual]] with the same grieving material in a darker, warmer register, and the solo voices begin passing the elegy among themselves — oboe, cello, and others trading the line like mourners speaking in turn. Beneath them a slow, insistent funeral tread emerges in the lower strings and drum, a measured heartbeat of a march that gives the movement its tragic weight. Watch the principal cello for this answering solo. The music is building, patiently and inexorably, toward a peak of grief — you can feel the pressure gathering under the surface calm." },
+            { "t": 400, "label": "Climax & snare bridge", "text": "The gathering grief finally erupts into a tragic climax, the full orchestra crying out with a force the movement has been withholding — the emotional summit of the entire symphony. As it subsides, listen for a [[snare-drum tattoo @6:40 #aural]]: a stark, military drum-roll that emerges from the wreckage and forms a bridge. Crucially, the Lento does not end and pause — it runs directly, attacca, into the finale, that snare-drum carrying you across the seam without a break. Don't expect a stopping point or applause here; the drum is your signal that the music is about to be hurled into its final movement. Be ready to tap into the Finale.", "landmark": "attacca to IV" }
+          ]
+        },
+        {
+          "id": "shos1-iv",
+          "title": "IV. Allegro molto",
+          "durationSeconds": 450,
+          "attacca": false,
+          "sections": [
+            { "t": 0, "label": "Explosive launch", "text": "Out of the snare-drum bridge, [[full orchestra erupts @0:00 #aural]] and the finale explodes into motion — a violent, headlong contrast to the grief we just left. After the slow movement's stillness, the sheer speed and force here feels almost manic, the orchestra hurtling forward with wild, nervous energy. Shostakovich throws us from tragedy straight into a kind of frantic action, and the whiplash is deliberate. Brace for a movement that lurches between menace, momentum, and mockery, unable and unwilling to sit still. The young composer is showing off everything he can do, all at once." },
+            { "t": 120, "label": "Manic themes", "text": "The finale spins through whirling, driven material, its themes chasing and colliding with an energy that's exciting and slightly unhinged. Shostakovich keeps shifting the ground under you — a surging climb, a sudden sardonic aside, a lurch into darkness — so the movement feels less like a straight sprint than a series of hairpin turns. There's real menace edging the excitement here, a sense that the manic drive could tip into violence at any moment. This restless, ironic energy, refusing easy resolution, is the voice of the composer the world was about to discover. Stay with the momentum; it's building toward two big moments." },
+            { "t": 260, "label": "Timpani solo", "text": "Here comes the finale's showstopper: [[timpani solo @4:20 #visual]], where the whole orchestra drops away and the lone timpanist takes the spotlight with a thunderous, unaccompanied outburst. This is one of the most famous passages in the symphony and one of the easiest of all to spot — watch the back of the orchestra for the player hammering the kettledrums alone, a startling, theatrical gesture that stops the music in its tracks. It's a bold, almost outrageous stroke for a graduation piece, and it signals that the finale is turning toward its final reckoning. A perfect event to sync to: you'll both see and hear it unmistakably." },
+            { "t": 380, "label": "Triumphant, ambiguous close", "text": "The symphony drives to its conclusion with [[the big F-major peroration @6:20 #aural]] — a broad, brilliant, seemingly triumphant close, the full orchestra blazing. But listen closely and the triumph is edged with something knowing and sardonic, not entirely to be trusted; Shostakovich rarely offers a victory without a raised eyebrow, and even here at nineteen the ambiguity is already present. Is it genuine exultation or a grand gesture with a smirk underneath? He lets you decide. It's a dazzling, confident finish to a debut that announced one of the century's great symphonists — brilliant on the surface, restless underneath." }
+          ]
+        }
+      ]
+    }
+  ]
+}
