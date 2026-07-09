@@ -260,6 +260,13 @@ function renderPlayer(){
     ph.appendChild(el('div','composer',it.composer||''));
     ph.appendChild(el('div','title',it.title||''));
     if(it.credits)ph.appendChild(el('div','credits',it.credits));
+    const refM=(it.movements||[]).find(m=>m.scoreRef);
+    if(refM){
+      const ab=el('button','listenbtn arm','🎙 Listen');
+      ab.dataset.ref=refM.scoreRef;ab.style.marginTop='8px';
+      ab.onclick=()=>listenToggleFor(refM.scoreRef);
+      ph.appendChild(ab);
+    }
     pc.appendChild(ph);
     if(it.note){const nn=el('div','piece-note');String(it.note).split('\n\n').forEach(p=>nn.appendChild(el('p',null,p)));pc.appendChild(nn);}
     if(it.provisional)pc.appendChild(el('div','provisional','⚠ Timings provisional (world premiere) — use the narration as your anchor and nudge to re-sync.'));
@@ -410,8 +417,8 @@ function updateNow(){
   const nm=el('button','nudge','−5s');nm.onclick=()=>nudge(-5);
   const sp=el('div');sp.style.flex='1';sp.style.textAlign='center';sp.style.alignSelf='center';
   if(m.scoreRef){
-    const lb=el('button','listenbtn'+(listen.on?' on':''),listen.busy?'…':(listen.on?'● Listening':'🎙 Listen'));
-    lb.id='listenBtn';lb.onclick=toggleListen;sp.appendChild(lb);
+    const lb=el('button','listenbtn'+(listen.on&&listen.refUrl===m.scoreRef?' on':''),listen.busy?'…':(listen.on&&listen.refUrl===m.scoreRef?'● Listening':'🎙 Listen'));
+    lb.id='listenBtn';lb.onclick=()=>listenToggleFor(m.scoreRef);sp.appendChild(lb);
     const st=el('div','listen-status');st.id='listenStatus';sp.appendChild(st);
   } else {
     sp.style.color='var(--faint)';sp.style.fontSize='11px';sp.textContent='advance by ear with Sec ‹ ›';
@@ -436,16 +443,14 @@ function mapMovToRef(movSec){
 function listenAnchor(movSec){
   if(listen.follower){listen.follower.seed(mapMovToRef(movSec));listen.smoother&&listen.smoother.reset();listen.target=null;}
 }
-async function toggleListen(){
-  if(listen.busy)return;
-  if(listen.on){stopListen();updateNow();return;}
-  const m=flat[active]&&flat[active].mvt;
-  if(!m||!m.scoreRef)return;
-  listen.busy=true;updateNow();
+async function listenToggleFor(url){
+  if(listen.busy||!url)return;
+  if(listen.on){const same=listen.refUrl===url;stopListen();paintListenButtons();updateNow();if(same)return;}
+  listen.busy=true;paintListenButtons();updateNow();
   try{
-    if(listen.refUrl!==m.scoreRef){
-      const r=await fetch(m.scoreRef);if(!r.ok)throw new Error('reference not found');
-      listen.ref=ListenCore.decodeRef(await r.json());listen.refUrl=m.scoreRef;
+    if(listen.refUrl!==url||!listen.ref){
+      const r=await fetch(url);if(!r.ok)throw new Error('reference not found');
+      listen.ref=ListenCore.decodeRef(await r.json());listen.refUrl=url;
     }
     listen.stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false}});
     listen.ctx=new (window.AudioContext||window.webkitAudioContext)();
@@ -454,7 +459,8 @@ async function toggleListen(){
     listen.extractor=ListenCore.ChromaExtractor(sr,16384);
     listen.smoother=ListenCore.Smoother(20);
     listen.follower=ListenCore.Follower(listen.ref);
-    listen.follower.seed(mapMovToRef(elapsed));
+    const activeMatches=active>=0&&flat[active].mvt.scoreRef===url;
+    listen.follower.seed(activeMatches?mapMovToRef(elapsed):0);
     listen.hopSamples=Math.round(0.1*sr);
     listen.ring=new Float32Array(65536);listen.ringPos=0;listen.sinceHop=0;
     const src=listen.ctx.createMediaStreamSource(listen.stream);
@@ -471,6 +477,8 @@ async function toggleListen(){
       listen.sinceHop+=ch.length;
       while(listen.sinceHop>=listen.hopSamples){
         listen.sinceHop-=listen.hopSamples;
+        // armed but idle: don't track until a movement with this reference is running
+        if(!(running&&active>=0&&flat[active].mvt.scoreRef===listen.refUrl)){listen.target=null;continue;}
         const start=(listen.ringPos-listen.sinceHop-16384+2*RL)%RL;
         for(let i=0;i<16384;i++)winBuf[i]=ring[(start+i)%RL];
         const {chroma,energy}=listen.extractor.extract(winBuf);
@@ -489,7 +497,14 @@ async function toggleListen(){
     stopListen();
     alert('Listen failed: '+(err&&err.message?err.message:err));
   }
-  listen.busy=false;updateNow();
+  listen.busy=false;paintListenButtons();updateNow();
+}
+function paintListenButtons(){
+  document.querySelectorAll('.listenbtn.arm').forEach(b=>{
+    const mine=listen.on&&listen.refUrl===b.dataset.ref;
+    b.classList.toggle('on',mine);
+    b.textContent=listen.busy?'…':(mine?'● Listening (mic armed)':'🎙 Listen');
+  });
 }
 function stopListen(){
   listen.on=false;listen.target=null;listen.lastPos=null;listen.err=null;listen.gated=false;
@@ -503,6 +518,7 @@ function stopListen(){
 function paintListenStatus(){
   const st=document.getElementById('listenStatus');if(!st)return;
   if(!listen.on){st.textContent='';return;}
+  if(!(running&&active>=0&&flat[active].mvt.scoreRef===listen.refUrl)){st.textContent='mic armed — movement tap = downbeat';return;}
   if(listen.gated){st.textContent='· quiet ·';return;}
   if(listen.lastPos==null){st.textContent='listening…';return;}
   const d=listen.err==null?0:listen.err;
