@@ -95,6 +95,10 @@
   .cue:before{font-size:11px;margin-right:3px;opacity:.85}
   .cue.aural:before{content:"♪"}
   .cue.visual:before{content:"◉"}
+  @keyframes cuePulse{0%,100%{box-shadow:inset 0 0 0 1px rgba(217,178,106,.55)}50%{box-shadow:inset 0 0 0 2px var(--gold),0 0 10px rgba(217,178,106,.5)}}
+  .cue.soon{animation:cuePulse 1.2s ease-in-out infinite}
+  .cue.now{background:var(--gold);color:#14100a;box-shadow:0 0 14px rgba(217,178,106,.8)}
+  .cue.now:before{opacity:1}
   .np-next{margin-top:12px;padding-top:10px;border-top:1px dashed var(--line)}
   .np-nextlabel{color:var(--faint);font-size:11px;text-transform:uppercase;letter-spacing:.07em}
   .np-nextsection{font-family:var(--font-display);font-size:16px;margin:2px 0;color:var(--dim)}
@@ -357,7 +361,9 @@ function renderText(container,text){
   while((m=CUE_RE.exec(text))){
     if(m.index>last)container.appendChild(document.createTextNode(text.slice(last,m.index)));
     const label=m[1],t=(+m[2])*60+(+m[3]),kind=(m[4]||'aural').toLowerCase()==='visual'?'visual':'aural';
-    const b=el('button','cue '+kind,label);
+    let state='';
+    if(active>=0){const d=t-elapsed;if(d>0&&d<=8)state=' soon';else if(d<=0&&d>-5)state=' now';}
+    const b=el('button','cue '+kind+state,label);
     b.title=(kind==='visual'?'When you SEE this':'When you HEAR this')+', tap to re-sync ('+fmt(t)+')';
     b.onclick=e=>{e.stopPropagation();resyncTo(t);};
     container.appendChild(b);last=CUE_RE.lastIndex;
