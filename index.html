@@ -361,15 +361,15 @@ function gotoSection(delta){
   let i=Math.max(0,Math.min(secs.length-1,curIndex(secs)+delta));
   resyncTo(secs[i].t);
 }
-// inline event cues:  [[label @M:SS #kind]]
-const CUE_RE=/\[\[(.+?)\s*@(\d+):(\d\d)(?:\s*#(\w+))?\]\]/g;
+// inline event cues:  [[label @M:SS +holdSecs #kind]]
+const CUE_RE=/\[\[(.+?)\s*@(\d+):(\d\d)(?:\s*\+(\d+))?(?:\s*#(\w+))?\]\]/g;
 function renderText(container,text){
   container.textContent='';let last=0,m;CUE_RE.lastIndex=0;
   while((m=CUE_RE.exec(text))){
     if(m.index>last)container.appendChild(document.createTextNode(text.slice(last,m.index)));
-    const label=m[1],t=(+m[2])*60+(+m[3]),kind=(m[4]||'aural').toLowerCase()==='visual'?'visual':'aural';
+    const label=m[1],t=(+m[2])*60+(+m[3]),hold=m[4]?+m[4]:5,kind=(m[5]||'aural').toLowerCase()==='visual'?'visual':'aural';
     let state='';
-    if(active>=0){const d=t-elapsed;if(d>0&&d<=8)state=' soon';else if(d<=0&&d>-5)state=' now';}
+    if(active>=0){const d=t-elapsed;if(d>0&&d<=8)state=' soon';else if(d<=0&&d>-hold)state=' now';}
     const b=el('button','cue '+kind+state,label);
     b.title=(kind==='visual'?'When you SEE this':'When you HEAR this')+', tap to re-sync ('+fmt(t)+')';
     b.onclick=e=>{e.stopPropagation();resyncTo(t);};

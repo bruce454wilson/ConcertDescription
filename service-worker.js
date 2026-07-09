@@ -1,4 +1,4 @@
-const CACHE = "concert-word-score-v7";
+const CACHE = "concert-word-score-v8";
 const ASSETS = [
   "./", "./index.html", "./program.json", "./manifest.webmanifest",
   "./icon-192.png", "./icon-512.png", "./apple-touch-icon.png",
