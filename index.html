@@ -110,6 +110,10 @@
   .controls .nudge{flex:0 0 auto;min-width:56px;font-family:var(--font-mono)}
   .np-idle{color:var(--faint);font-size:14px;text-align:center;padding:6px 0}
 
+  .listenbtn{background:transparent;color:var(--dim);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:13px;font-weight:600;min-height:40px}
+  .listenbtn.on{color:#7ddc8a;border-color:#7ddc8a}
+  .listen-status{font-family:var(--font-mono);font-size:11px;color:var(--gold);margin-top:3px;min-height:14px}
+
   .footer{color:var(--faint);font-size:11px;text-align:center;margin-top:20px;line-height:1.5}
   .backbtn{background:transparent;color:var(--dim);border:1px solid var(--line);padding:6px 12px;font-size:12px;min-height:36px}
 
@@ -122,10 +126,15 @@
 <body>
 <div class="wrap" id="app"></div>
 
+<script src="./listen-core.js"></script>
 <script>
 "use strict";
 const LS_LIB='cws.library', LS_LAST='cws.last';
 let program=null, flat=[], active=-1, elapsed=0, running=false, rafId=0, lastTs=0, wakeLock=null;
+// --- Listen (mic score-following) state ---
+const listen={on:false,busy:false,ref:null,refUrl:null,follower:null,smoother:null,extractor:null,
+              ctx:null,stream:null,node:null,ring:null,ringPos:0,sinceHop:1e9,hopSamples:0,
+              target:null,lastPos:null,gated:false,err:null};
 
 // ---------- utils ----------
 const $=(s,r=document)=>r.querySelector(s);
@@ -278,13 +287,22 @@ function renderPlayer(){
 function startMovement(fi){
   if(fi<0||fi>=flat.length)return;
   active=fi;elapsed=0;running=true;
+  if(listen.on)listenAnchor(0);   // anchored start: tap = downbeat
   requestWake();startRaf();paintButtons();updateNow();
 }
 function startRaf(){stopRaf();lastTs=performance.now();rafId=requestAnimationFrame(tick);}
 function stopRaf(){if(rafId){cancelAnimationFrame(rafId);rafId=0;}}
 function tick(ts){
   if(!running){return;}
-  const dt=(ts-lastTs)/1000;lastTs=ts;elapsed+=dt;
+  const dt=(ts-lastTs)/1000;lastTs=ts;
+  if(listen.on&&listen.target!=null){
+    // slew the playhead toward the follower's position instead of free-running
+    const err=listen.target-elapsed;
+    if(Math.abs(err)>8){elapsed=listen.target;}
+    else{const rate=Math.max(0.4,Math.min(2.0,1+err*0.15));elapsed+=dt*rate;}
+  } else {
+    elapsed+=dt;
+  }
   const cur=flat[active];const dur=cur.mvt.durationSeconds;
   if(elapsed>=dur){
     const over=elapsed-dur;
@@ -301,11 +319,12 @@ function pauseResume(){
   if(running){startRaf();requestWake();}else{stopRaf();}
   updateControls();
 }
-function resetMvt(){elapsed=0;running=false;stopRaf();paintButtons();updateNow();}
+function resetMvt(){elapsed=0;running=false;stopRaf();if(listen.on)listenAnchor(0);paintButtons();updateNow();}
 function nudge(sec){
   if(active<0)return;
   const dur=flat[active].mvt.durationSeconds;
   elapsed=Math.max(0,Math.min(dur,elapsed+sec));
+  if(listen.on)listenAnchor(elapsed);   // manual correction overrides the follower
   paintButtons();updateNow();
 }
 
@@ -323,6 +342,7 @@ function resyncTo(t){
   if(active<0)return;
   const dur=flat[active].mvt.durationSeconds;
   elapsed=Math.max(0,Math.min(dur-0.05,t));
+  if(listen.on)listenAnchor(elapsed);
   paintButtons();updateNow();
 }
 function gotoSection(delta){
@@ -383,13 +403,105 @@ function updateNow(){
   const ctr2=el('div','controls');
   const nm=el('button','nudge','−5s');nm.onclick=()=>nudge(-5);
   const sp=el('div');sp.style.flex='1';sp.style.textAlign='center';sp.style.alignSelf='center';
-  sp.style.color='var(--faint)';sp.style.fontSize='11px';sp.textContent='tap a cue to re-sync';
+  if(m.scoreRef){
+    const lb=el('button','listenbtn'+(listen.on?' on':''),listen.busy?'…':(listen.on?'● Listening':'🎙 Listen'));
+    lb.id='listenBtn';lb.onclick=toggleListen;sp.appendChild(lb);
+    const st=el('div','listen-status');st.id='listenStatus';sp.appendChild(st);
+  } else {
+    sp.style.color='var(--faint)';sp.style.fontSize='11px';sp.textContent='advance by ear with Sec ‹ ›';
+  }
   const np=el('button','nudge','+5s');np.onclick=()=>nudge(5);
   ctr2.appendChild(nm);ctr2.appendChild(sp);ctr2.appendChild(np);
   nc.appendChild(ctr2);
+  paintListenStatus();
 }
 function updateControls(){const b=$('#pauseBtn');if(b)b.textContent=running?'Pause':'Resume';}
 function shortComposer(c){return String(c).replace(/\s*\(.*?\)\s*/g,'').trim();}
+
+// ---------- Listen: mic score-following ----------
+function mapRefToMov(refSec){
+  const m=flat[active]&&flat[active].mvt;if(!m||!listen.ref)return null;
+  return refSec/listen.ref.meta.refDurationSeconds*m.durationSeconds;
+}
+function mapMovToRef(movSec){
+  const m=flat[active]&&flat[active].mvt;if(!m||!listen.ref)return 0;
+  return movSec/m.durationSeconds*listen.ref.meta.refDurationSeconds;
+}
+function listenAnchor(movSec){
+  if(listen.follower){listen.follower.seed(mapMovToRef(movSec));listen.smoother&&listen.smoother.reset();listen.target=null;}
+}
+async function toggleListen(){
+  if(listen.busy)return;
+  if(listen.on){stopListen();updateNow();return;}
+  const m=flat[active]&&flat[active].mvt;
+  if(!m||!m.scoreRef)return;
+  listen.busy=true;updateNow();
+  try{
+    if(listen.refUrl!==m.scoreRef){
+      const r=await fetch(m.scoreRef);if(!r.ok)throw new Error('reference not found');
+      listen.ref=ListenCore.decodeRef(await r.json());listen.refUrl=m.scoreRef;
+    }
+    listen.stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false}});
+    listen.ctx=new (window.AudioContext||window.webkitAudioContext)();
+    await listen.ctx.resume();
+    const sr=listen.ctx.sampleRate;
+    listen.extractor=ListenCore.ChromaExtractor(sr,16384);
+    listen.smoother=ListenCore.Smoother(20);
+    listen.follower=ListenCore.Follower(listen.ref);
+    listen.follower.seed(mapMovToRef(elapsed));
+    listen.hopSamples=Math.round(0.1*sr);
+    listen.ring=new Float32Array(65536);listen.ringPos=0;listen.sinceHop=0;
+    const src=listen.ctx.createMediaStreamSource(listen.stream);
+    const proc=listen.ctx.createScriptProcessor(4096,1,1);
+    const mute=listen.ctx.createGain();mute.gain.value=0;
+    src.connect(proc);proc.connect(mute);mute.connect(listen.ctx.destination);
+    listen.node=proc;listen._src=src;listen._mute=mute;
+    const winBuf=new Float32Array(16384);
+    proc.onaudioprocess=e=>{
+      const ch=e.inputBuffer.getChannelData(0);
+      const ring=listen.ring,RL=ring.length;
+      for(let i=0;i<ch.length;i++){ring[(listen.ringPos+i)%RL]=ch[i];}
+      listen.ringPos=(listen.ringPos+ch.length)%RL;
+      listen.sinceHop+=ch.length;
+      while(listen.sinceHop>=listen.hopSamples){
+        listen.sinceHop-=listen.hopSamples;
+        const start=(listen.ringPos-listen.sinceHop-16384+2*RL)%RL;
+        for(let i=0;i<16384;i++)winBuf[i]=ring[(start+i)%RL];
+        const {chroma,energy}=listen.extractor.extract(winBuf);
+        const sm=listen.smoother.push(chroma);
+        const pos=listen.follower.step(sm,energy);
+        if(pos==null){listen.gated=true;}
+        else{
+          listen.gated=false;listen.lastPos=pos;
+          const t=mapRefToMov(pos);
+          if(t!=null){listen.target=t;listen.err=t-elapsed;}
+        }
+      }
+    };
+    listen.on=true;
+  }catch(err){
+    stopListen();
+    alert('Listen failed: '+(err&&err.message?err.message:err));
+  }
+  listen.busy=false;updateNow();
+}
+function stopListen(){
+  listen.on=false;listen.target=null;listen.lastPos=null;listen.err=null;listen.gated=false;
+  try{if(listen.node){listen.node.disconnect();listen.node.onaudioprocess=null;}}catch(e){}
+  try{if(listen._src)listen._src.disconnect();}catch(e){}
+  try{if(listen._mute)listen._mute.disconnect();}catch(e){}
+  try{if(listen.stream)listen.stream.getTracks().forEach(t=>t.stop());}catch(e){}
+  try{if(listen.ctx)listen.ctx.close();}catch(e){}
+  listen.ctx=null;listen.stream=null;listen.node=null;
+}
+function paintListenStatus(){
+  const st=document.getElementById('listenStatus');if(!st)return;
+  if(!listen.on){st.textContent='';return;}
+  if(listen.gated){st.textContent='· quiet ·';return;}
+  if(listen.lastPos==null){st.textContent='listening…';return;}
+  const d=listen.err==null?0:listen.err;
+  st.textContent='score '+fmt(listen.lastPos)+'  Δ'+(d>=0?'+':'−')+Math.abs(d).toFixed(1)+'s';
+}
 
 // ---------- wake lock ----------
 async function requestWake(){

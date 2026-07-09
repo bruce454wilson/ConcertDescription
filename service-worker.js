@@ -1,7 +1,8 @@
-const CACHE = "concert-word-score-v3";
+const CACHE = "concert-word-score-v4";
 const ASSETS = [
   "./", "./index.html", "./program.json", "./manifest.webmanifest",
-  "./icon-192.png", "./icon-512.png", "./apple-touch-icon.png"
+  "./icon-192.png", "./icon-512.png", "./apple-touch-icon.png",
+  "./listen-core.js", "./scoreref-dvorak9-i.json"
 ];
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting()));
